@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <h1 class="mt-4">{{ post.title }}</h1>
+                    <p class="lead"><span class="label label-success">{{ post.author.username }}</span></p>
+                <hr>
+                    <span class="label label-primary">{{ post.timestamp }}</span>
+                <hr>
+                    <p class="lead">{{ post.body }}</p>
+                    
+            </div>
+        </div>
+    </div>
+{% endblock %}

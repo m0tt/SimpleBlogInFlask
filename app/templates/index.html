@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block content %}
+    <h1><center>Hi, {{ current_user.username }}!</center></h1>
+    {% for post in posts %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <a href="{{ url_for('post', post_id = post.id) }}">
+                    <h1 class="mt-4">{{ post.title }}</h1>
+                </a>
+                    <p class="lead">
+                        <span class="label label-success">{{post.author.username}}</span>
+                        <span class="label label-primary">{{ post.timestamp }}</span>
+                        <a class="label label-warning" href="{{ url_for('edit', post_id = post.id) }}">Edit</a>
+                    </p>
+            </div>
+        </div>  
+    </div> 
+    {% else %}
+    <div style="text-align: center;" >
+        <span class="label label-danger">Sorry but there is nothing to display. Please create a new post.</span> 
+    </div>
+    {% endfor %}
+{% endblock %}
