@@ -7,13 +7,13 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
-                <a href="{{ url_for('post', post_id = post.id) }}">
+                <a href="{{ url_for('posts.post', post_id = post.id) }}">
                     <h1 class="mt-4">{{ post.title }}</h1>
                 </a>
                     <p class="lead">
                         <span class="label label-success">{{post.author.username}}</span>
                         <span class="label label-primary">{{ post.timestamp }}</span>
-                        <a class="label label-warning" href="{{ url_for('edit', post_id = post.id) }}">Edit</a>
+                        <a class="label label-warning" href="{{ url_for('posts.edit', post_id = post.id) }}">Edit</a>
                     </p>
             </div>
         </div>  
