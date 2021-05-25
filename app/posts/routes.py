@@ -7,7 +7,8 @@ from flask import request
 from app.posts import bp
 
 
-@bp.route('/create', methods=['GET', 'POST'])
+@bp.get('/create')
+@bp.post('/create')
 @login_required
 def create():
     form = CreatePostForm()
@@ -23,7 +24,8 @@ def post(post_id):
     post = Post().query.get(post_id)
     return render_template('posts/post.html', post = post)
 
-@bp.route('/<int:post_id>/edit', methods=['GET', 'POST'])
+@bp.get('/<int:post_id>/edit')
+@bp.post('/<int:post_id>/edit')
 @login_required
 def edit(post_id):
     form = EditPostForm()
@@ -39,7 +41,7 @@ def edit(post_id):
         form.body.data = post.body 
     return render_template('posts/edit_post.html', title='Edit Post', form=form, post_id=post.id)
 
-@bp.route('/<int:post_id>/delete', methods=('POST',))
+@bp.post('/<int:post_id>/delete')
 def delete(post_id):
     post = Post().query.get(post_id)
     db.session.delete(post)

@@ -8,7 +8,8 @@ from werkzeug.urls import url_parse
 from flask import request
 
 
-@bp.route('/login', methods=['GET', 'POST'])
+@bp.get('/login')
+@bp.post('/login')
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
@@ -30,7 +31,8 @@ def logout():
     logout_user()
     return redirect(url_for('main.index'))
 
-@bp.route('/register', methods=['GET', 'POST'])
+@bp.get('/register')
+@bp.post('/register')
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
