@@ -8,10 +8,13 @@ services:
       FLASK_ENV: development
       FLASK_RUN_HOST: 0.0.0.0
 
-  hub:
+  selenium-hub:
     image: selenium/hub
     ports:
       - "4444:4444"
+      - "4443:4443"
+      - "4442:4442"
+
     environment:
       GRID_MAX_SESSION: 16
       GRID_BROWSER_TIMEOUT: 3000
@@ -21,21 +24,31 @@ services:
     image: selenium/node-chrome
     container_name: web-automation_chrome
     depends_on:
-      - hub
+      - selenium-hub
     environment:
-      HUB_PORT_4444_TCP_ADDR: hub
-      HUB_PORT_4444_TCP_PORT: 4444
-      NODE_MAX_SESSION: 2
-      NODE_MAX_INSTANCES: 2
+      SE_EVENT_BUS_HOST: selenium-hub
+      SE_EVENT_BUS_PUBLISH_PORT: 4442
+      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+
 
   firefox:
     image: selenium/node-firefox
     container_name: web-automation_firefox
     depends_on:
-      - hub
+      - selenium-hub
     environment:
-      HUB_PORT_4444_TCP_ADDR: hub
-      HUB_PORT_4444_TCP_PORT: 4444
-      NODE_MAX_SESSION: 2
-      NODE_MAX_INSTANCES: 2
+      SE_EVENT_BUS_HOST: selenium-hub
+      SE_EVENT_BUS_PUBLISH_PORT: 4442
+      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+
+  edge:
+    image: selenium/node-edge
+    container_name: web-automation_edge
+    depends_on:
+      - selenium-hub
+    environment:
+      SE_EVENT_BUS_HOST: selenium-hub
+      SE_EVENT_BUS_PUBLISH_PORT: 4442
+      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+
 
