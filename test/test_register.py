@@ -4,6 +4,10 @@ class RegisterTests(AppTests):
 
     def test_register_with_invalid_credentials(self):
         response = self.app.post('/auth/register',
+        follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'This field is required.', response.data)
+        response = self.app.post('/auth/register',
         data=dict(username='Test'),
         follow_redirects=True)
         self.assertEqual(response.status_code, 200)
