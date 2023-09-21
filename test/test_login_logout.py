@@ -2,6 +2,7 @@ from test_config import AppTests
 from app.models import User
 from app import db
 
+
 class LoginTests(AppTests):
 
     def test_password_hashing(self):
@@ -17,6 +18,9 @@ class LoginTests(AppTests):
         self.assertEqual(response.status_code, 200)
 
     def test_login_with_invalid_credentials(self):
+        response = self.app.post('/auth/login', follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'This field is required', response.data)
         response = self.app.post('/auth/login', data=dict(username='Test', password='Test123'), follow_redirects=True)
         self.assertEqual(response.status_code, 200)
         self.assertIn(b'Invalid username or password', response.data)

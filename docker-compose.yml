@@ -22,6 +22,7 @@ services:
 
   chrome:
     image: selenium/node-chrome
+    shm_size: 2gb
     container_name: web-automation_chrome
     depends_on:
       - selenium-hub
@@ -33,6 +34,7 @@ services:
 
   firefox:
     image: selenium/node-firefox
+    shm_size: 2gb
     container_name: web-automation_firefox
     depends_on:
       - selenium-hub
@@ -43,6 +45,7 @@ services:
 
   edge:
     image: selenium/node-edge
+    shm_size: 2gb
     container_name: web-automation_edge
     depends_on:
       - selenium-hub
